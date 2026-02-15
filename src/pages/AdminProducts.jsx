@@ -1,7 +1,7 @@
 
 import React, { useState, useRef } from 'react';
 import { useApp } from '../App.jsx';
-import { Plus, Search, Edit2, Trash2, ExternalLink, ArrowLeft, Sparkles, Loader2, Upload, X } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, ExternalLink, ArrowLeft, Upload } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,7 +11,7 @@ const AdminProducts = () => {
   const [search, setSearch] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
-  const [isGenerating, setIsGenerating] = useState(false);
+  // removed unused isGenerating state
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
   const fileInputRef = useRef(null);
@@ -129,7 +129,7 @@ const AdminProducts = () => {
                 <tr key={product.id}>
                   <td className="px-4 py-3">
                     <div className="d-flex align-items-center gap-3">
-                      <img src={product.image || 'https://via.placeholder.com/48'} className="rounded-3 border object-fit-cover bg-light" style={{ width: '48px', height: '48px' }} alt="" />
+                      <img src={product.image || 'https://via.placeholder.com/48'} className="rounded-3 border object-fit-cover bg-light" style={{ width: '48px', height: '48px' }} alt={product.name || 'Product image'} />
                       <div>
                         <div className="fw-bold text-dark">{product.name}</div>
                         <div className="small text-muted">{product.category}</div>
@@ -192,7 +192,7 @@ const AdminProducts = () => {
                       <input type="file" ref={fileInputRef} hidden onChange={handleFileChange} accept="image/*" />
                       {formData.image && <span className="text-muted small">Image selected</span>}
                     </div>
-                    {formData.image && <img src={formData.image} className="rounded-4 border w-100 object-fit-contain mt-2 bg-light shadow-sm" style={{ maxHeight: '300px' }} />}
+                    {formData.image && <img src={formData.image} className="rounded-4 border w-100 object-fit-contain mt-2 bg-light shadow-sm" style={{ maxHeight: '300px' }} alt={formData.name || 'Product preview'} />}
                   </div>
                   <div className="col-12">
                     <div className="form-check">

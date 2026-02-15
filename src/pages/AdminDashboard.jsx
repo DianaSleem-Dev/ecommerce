@@ -1,15 +1,13 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useApp } from '../App.jsx';
 import { Link } from 'react-router-dom';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { DollarSign, Clock, Package, Users, Sparkles, ChevronRight } from 'lucide-react';
+import { DollarSign, Clock, Package, Users, ChevronRight } from 'lucide-react';
 import { SALES_DATA } from '../constants.js';
 
 const AdminDashboard = () => {
   const { products, orders } = useApp();
-  const [growthTips, setGrowthTips] = useState([]);
-  const [loadingTips, setLoadingTips] = useState(false);
 
 
 

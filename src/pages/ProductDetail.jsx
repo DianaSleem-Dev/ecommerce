@@ -1,8 +1,8 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useApp } from '../App.jsx';
-import { ShoppingCart, ArrowLeft, ShieldCheck, Truck, RotateCcw, Sparkles } from 'lucide-react';
+import { ShoppingCart, ArrowLeft, ShieldCheck, Truck, RotateCcw } from 'lucide-react';
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -10,8 +10,7 @@ const ProductDetail = () => {
   const { products, addToCart } = useApp();
   const product = products.find(p => p.id === id);
   
-  const [insight, setInsight] = useState(null);
-  const [loadingInsight, setLoadingInsight] = useState(false);
+  // removed unused insight and loadingInsight state
 
   
 
