@@ -7,7 +7,7 @@ import { ShoppingCart, ArrowLeft, ShieldCheck, Truck, RotateCcw } from 'lucide-r
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { products, addToCart } = useApp();
+  const { products, addToCart, user } = useApp();
   const product = products.find(p => p.id === id);
   
   // removed unused insight and loadingInsight state
@@ -57,11 +57,11 @@ const ProductDetail = () => {
 
           <div className="mb-5">
             <button 
-              onClick={() => addToCart(product)}
-              disabled={product.stock === 0}
-              className={`btn btn-lg w-100 rounded-4 py-3 fw-bold d-flex align-items-center justify-content-center gap-3 shadow ${product.stock === 0 ? 'btn-secondary' : 'btn-dark'}`}
+              onClick={() => user ? addToCart(product) : null}
+              disabled={product.stock === 0 || !user}
+              className={`btn btn-lg w-100 rounded-4 py-3 fw-bold d-flex align-items-center justify-content-center gap-3 shadow ${product.stock === 0 || !user ? 'btn-secondary' : 'btn-dark'}`}
             >
-              <ShoppingCart size={20} /> {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+              <ShoppingCart size={20} /> {product.stock === 0 ? 'Out of Stock' : !user ? 'Login to Add' : 'Add to Cart'}
             </button>
             <p className="text-center small text-muted mt-3">Complimentary priority shipping on this item.</p>
           </div>

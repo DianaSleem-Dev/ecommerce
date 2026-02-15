@@ -5,7 +5,7 @@ import { useApp } from '../App.jsx';
 import { Search, ArrowRight } from 'lucide-react';
 
 const Storefront = () => {
-  const { products, addToCart } = useApp();
+  const { products, addToCart, user } = useApp();
   const [category, setCategory] = useState('All');
   const [search, setSearch] = useState('');
 
@@ -127,11 +127,11 @@ const Storefront = () => {
                     </div>
                     <p className="small text-muted mb-3 text-truncate">{product.description}</p>
                     <button 
-                      onClick={() => addToCart(product)}
-                      disabled={product.stock === 0}
-                      className={`btn w-100 rounded-3 py-2 fw-bold ${product.stock === 0 ? 'btn-secondary' : 'btn-dark'}`}
+                      onClick={() => user ? addToCart(product) : null}
+                      disabled={product.stock === 0 || !user}
+                      className={`btn w-100 rounded-3 py-2 fw-bold ${product.stock === 0 || !user ? 'btn-secondary' : 'btn-dark'}`}
                     >
-                      {product.stock === 0 ? 'Out of Stock' : 'Quick Add'}
+                      {product.stock === 0 ? 'Out of Stock' : !user ? 'Login to Add' : 'Quick Add'}
                     </button>
                   </div>
                 </div>
@@ -145,6 +145,12 @@ const Storefront = () => {
               <button onClick={() => {setCategory('All'); setSearch('');}} className="btn btn-link text-indigo fw-bold text-decoration-none">Clear all filters</button>
             </div>
           )}
+
+          <div className="text-center mt-5">
+            <Link to="/products" className="btn btn-indigo btn-lg rounded-pill px-5 fw-bold d-inline-flex align-items-center gap-2">
+              View All Products <ArrowRight size={20} />
+            </Link>
+          </div>
         </div>
       </section>
     </div>

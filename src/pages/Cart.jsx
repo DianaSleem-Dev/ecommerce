@@ -6,9 +6,21 @@ import { Trash2, Plus, Minus, ArrowRight, ShoppingBag } from 'lucide-react';
 import { toast } from 'react-toastify';
 
 const Cart = () => {
-  const { cart, removeFromCart, updateCartQuantity, addOrder, clearCart, updateProductStock, products } = useApp();
+  const { cart, removeFromCart, updateCartQuantity, addOrder, clearCart, updateProductStock, products, user } = useApp();
   const navigate = useNavigate();
   const [checkingOut, setCheckingOut] = useState(false);
+
+  if (!user) {
+    return (
+      <div className="container py-5 text-center">
+        <h2 className="display-5 fw-bold mb-3">Please log in to view your cart</h2>
+        <p className="text-muted mb-4 mx-auto" style={{ maxWidth: '400px' }}>You must be logged in to access your shopping cart and checkout.</p>
+        <button className="btn btn-indigo btn-lg px-5 rounded-pill fw-bold" onClick={() => navigate('/login')}>
+          Login
+        </button>
+      </div>
+    );
+  }
 
   const subtotal = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
   const shipping = subtotal > 500 ? 0 : 25;
